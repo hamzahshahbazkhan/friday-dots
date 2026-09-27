@@ -51,7 +51,7 @@ background-opacity = 1.0
 
 gtk-tabs-location = hidden
 font-family = JetBrainsMono Nerd Font
-font-size = 8
+font-size = 9
 scrollback-limit = 10_000
 # window-theme = ghostty
 clipboard-read = allow
