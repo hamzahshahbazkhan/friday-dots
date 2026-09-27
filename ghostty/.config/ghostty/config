@@ -50,8 +50,8 @@ config-file = ?"~/.config/themes/current/ghostty.conf"
 background-opacity = 1.0
 
 gtk-tabs-location = hidden
-font-family = AdwaitaMono
-font-size = 12
+font-family = JetBrainsMono Nerd Font
+font-size = 8
 scrollback-limit = 10_000
 # window-theme = ghostty
 clipboard-read = allow
@@ -72,5 +72,4 @@ window-width=1640
 # cursor-style=block
 # window-animation=false
 # GSK_RENDERER=vulkan ghostty
-
 

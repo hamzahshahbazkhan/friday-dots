@@ -1,0 +1,10 @@
+{
+  "background": "#18191a",
+  "backgroundAlt": "#282a2b",
+  "foreground": "#cdcdcd",
+  "muted": "#3c3d3e",
+  "accent": "#6e8fb0",
+  "accent2": "#6e8fb0",
+  "urgent": "#d2788c",
+  "border": "#3c3d3e"
+}

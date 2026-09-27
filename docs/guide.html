@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Friday Arch Setup Guide</title>
+  <style>
+    :root { color-scheme: dark; --bg:#111411; --panel:#191e1a; --line:#303a32; --text:#e8e8dc; --muted:#abb4a8; --accent:#a4bd8c; --code:#101410; font:16px/1.65 system-ui,sans-serif }
+    * { box-sizing:border-box } body { margin:0; background:var(--bg); color:var(--text) }
+    header,main,footer { width:min(920px,calc(100% - 32px)); margin:auto }
+    header { padding:64px 0 36px } header p,.muted { color:var(--muted) }
+    h1 { margin:0; font-size:clamp(2.3rem,8vw,4rem); line-height:1.05; letter-spacing:-.04em }
+    h2 { margin:0 0 12px; font-size:1.45rem } h3 { margin:0 0 6px; font-size:1.05rem }
+    a { color:var(--accent) } section { margin:18px 0; padding:24px; border:1px solid var(--line); border-radius:14px; background:var(--panel) }
+    .steps { display:grid; gap:14px; padding-left:1.4rem }
+    pre { overflow-x:auto; margin:10px 0; padding:14px 16px; border:1px solid var(--line); border-radius:9px; background:var(--code) }
+    code { font:.91em ui-monospace,SFMono-Regular,Consolas,monospace } p code,li code { color:var(--accent) }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px }
+    .card { padding:15px; border:1px solid var(--line); border-radius:10px }
+    .key { color:var(--accent); font-weight:650; white-space:nowrap }
+    footer { padding:24px 0 48px; color:var(--muted) }
+    @media(max-width:560px) { header { padding-top:42px } section { padding:18px } }
+  </style>
+</head>
+<body>
+  <header>
+    <p>ARCH LINUX · HYPRLAND · QUICKSHELL</p>
+    <h1>Friday desktop setup</h1>
+    <p>A repeatable install, a small maintenance routine, and a map of everyday controls.</p>
+  </header>
+  <main>
+    <section id="install">
+      <h2>Install on a new laptop</h2>
+      <ol class="steps">
+        <li>Install Arch, create your regular user, enable networking, and give the user sudo access.</li>
+        <li>Clone this repo and run the setup script:</li>
+      </ol>
+      <pre><code>git clone https://github.com/hamzahshahbazkhan/dots.git ~/dots
+cd ~/dots
+./bootstrap.sh --theme hamza</code></pre>
+      <p>The script updates Arch, installs current repository and AUR packages, detects CPU/NVIDIA/Bluetooth hardware, applies dotfiles, and creates expected user folders. It may ask before changing your login manager, login shell, or Docker access. Keep your current display manager if it is already configured.</p>
+      <p>To skip optional changes:</p>
+      <pre><code>./bootstrap.sh --theme hamza --non-interactive</code></pre>
+      <p class="muted">This starts after Arch installation; it does not partition disks, create users, or configure firmware/UEFI.</p>
+    </section>
+    <section id="maintain">
+      <h2>Keep it current</h2>
+      <div class="grid">
+        <div class="card"><h3>Update Arch and AUR apps</h3><pre><code>paru -Syu</code></pre><p>Review prompts before accepting package removals or replacements.</p></div>
+        <div class="card"><h3>Update and apply dotfiles</h3><pre><code>cd ~/dots
+git status
+git pull --ff-only
+./restore.sh --theme hamza</code></pre><p>Config files are linked to the repo, so edits can change files you would pull or push. Check git status first.</p></div>
+        <div class="card"><h3>Switch themes</h3><pre><code>./restore.sh --theme gruvbox
+# or, after setup:
+theme everforest</code></pre><p>Follow <a href="themes.md">the theme format</a> and run <code>./scripts/check-themes.sh</code>.</p></div>
+      </div>
+      <p>Arch is rolling release. The repo records package names and configuration, not package versions. A future install gets versions available then; it is not a byte-for-byte snapshot.</p>
+    </section>
+    <section id="controls">
+      <h2>Everyday controls</h2>
+      <div class="grid">
+        <div class="card"><span class="key">Super + Space</span><br>App launcher</div>
+        <div class="card"><span class="key">Super + S</span><br>Toggle notes dropdown at ~/Friday/buffer.md</div>
+        <div class="card"><span class="key">Super + Ctrl + K</span><br>Searchable keybinding guide</div>
+        <div class="card"><span class="key">Super + Ctrl + T / W</span><br>Theme / wallpaper picker</div>
+        <div class="card"><span class="key">Super + P</span><br>Next wallpaper</div>
+        <div class="card"><span class="key">Super + Shift + E</span><br>Power menu</div>
+        <div class="card"><span class="key">Super + V / .</span><br>Clipboard / emoji picker</div>
+        <div class="card"><span class="key">Super + Ctrl + F</span><br>tmux project sessionizer</div>
+        <div class="card"><span class="key">Super + H/J/K/L</span><br>Focus windows; add Shift to move one</div>
+      </div>
+      <p>Click the clock for the calendar. Wi-Fi and Bluetooth open their controls; CPU/RAM open btop; battery opens power profiles. Picker widgets use Escape and Vim navigation where listed.</p>
+    </section>
+    <section id="files">
+      <h2>Where things live</h2>
+      <ul>
+        <li><code>bootstrap.sh</code> installs packages and prepares a fresh Arch user.</li>
+        <li><code>restore.sh</code> links configs and selects a theme without reinstalling packages.</li>
+        <li><code>packages/pacman.txt</code> and <code>packages/aur.txt</code> list package names without version pins.</li>
+        <li><code>hypr/</code>, <code>quickshell/</code>, <code>scripts/</code>, and app folders hold installed configuration.</li>
+        <li><code>themes/.config/themes/</code> holds theme palettes; <code>wallpapers/</code> holds wallpaper files.</li>
+      </ul>
+      <p>Optional Git display name/email settings go in a local <code>.env</code> copied from <code>.env.example</code>. Never put passwords, tokens, SSH keys, or app credentials in this repo. Use an SSH key or Git credential helper; sign in to apps on each device.</p>
+    </section>
+    <section id="troubleshooting">
+      <h2>Quick fixes</h2>
+      <ul>
+        <li>Hyprland config changed: <code>hyprctl reload</code>.</li>
+        <li>Quickshell config changed: <code>quickshell kill</code>, then <code>quickshell --daemonize</code>.</li>
+        <li>Quickshell errors: <code>quickshell log</code>.</li>
+        <li>Quick controls need NetworkManager, <code>power-profiles-daemon</code>, and <code>bluetooth.service</code> running for Wi-Fi, power profiles, and Bluetooth.</li>
+        <li>Conflicting old config directories are backed up under <code>~/.config-backup-*</code> by <code>restore.sh</code>.</li>
+      </ul>
+    </section>
+  </main>
+  <footer>Keep local edits and credentials backed up separately. Before sharing this repo, review git status and the staged diff.</footer>
+</body>
+</html>

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Disk Usage
+Comment=Browse disk usage, biggest first (dua)
+Icon=drive-harddisk
+Exec=ghostty -e dua interactive /
+Terminal=false
+Categories=System;Monitor;
+StartupNotify=false

@@ -1,0 +1,16 @@
+@define-color window_bg_color #000000;
+@define-color window_fg_color #d4cfc4;
+@define-color view_bg_color #000000;
+@define-color view_fg_color #d4cfc4;
+@define-color accent_bg_color #7d8f9d;
+@define-color accent_fg_color #000000;
+@define-color headerbar_bg_color #282828;
+@define-color headerbar_fg_color #d4cfc4;
+@define-color card_bg_color #282828;
+@define-color borders #3c3836;
+
+window, dialog, popover, menu { background-color: @window_bg_color; color: @window_fg_color; }
+button, headerbar, .card { background-color: @card_bg_color; color: @window_fg_color; border-color: @borders; }
+entry, textview, treeview, list, row { background-color: @view_bg_color; color: @view_fg_color; }
+*:selected, selection { background-color: @accent_bg_color; color: @accent_fg_color; }
+tooltip { background-color: #282828; color: #d4cfc4; border: 1px solid #3c3836; }

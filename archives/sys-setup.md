@@ -122,7 +122,7 @@ Only includes installed packages
 | swww      | `swww <image>`                       | Set wallpapers in Hyprland                                 |
 | walker    | `walker <file>`                      | Terminal image viewer                                      |
 
-- battery_alert.sh added as a cron job for notification
+- battery alerts are now handled by Quickshell at 20% and 10%; no cron job is needed
 - battery max limit set to 65 as it is plugged in most time
 
 ## 🔮 Recommended / Optional Tools

@@ -13,10 +13,10 @@ find_keyword = { fg = "yellow", bold = true, italic = true, underline = true }
 find_position = { fg = "magenta", bg = "reset", bold = true, italic = true }
 
 # Markers style
-marker_copied = { fg = "green", bg = "green" }
-marker_cut = { fg = "red", bg = "red" }
-marker_marked = { fg = "cyan", bg = "cyan" }
-marker_selected = { fg = "#e78a4e", bg = "#e78a4e" }
+marker_copied = { fg = "black", bg = "green", bold = true }
+marker_cut = { fg = "white", bg = "red", bold = true }
+marker_marked = { fg = "black", bg = "cyan", bold = true }
+marker_selected = { fg = "black", bg = "#e78a4e", bold = true }
 
 # Counts style
 count_copied = { fg = "gray", bg = "green" }
@@ -81,11 +81,11 @@ rules = [
   { mime = "application/{,g}zip", fg = "red" },
   { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "red" },
   { mime = "application/{pdf,doc,rtf,vnd.*}", fg = "cyan" },
-  { name = "*", is = "orphan", bg = "red" },
-  { name = "*", is = "exec", fg = "green" },
-  { name = "*", is = "dummy", bg = "red" },
-  { name = "*/", is = "dummy", bg = "red" },
-  { name = "*/", fg = "blue" },
+  { url = "*", is = "orphan", bg = "red" },
+  { url = "*", is = "exec", fg = "green" },
+  { url = "*", is = "dummy", bg = "red" },
+  { url = "*/", is = "dummy", bg = "red" },
+  { url = "*/", fg = "blue" },
 ]
 
 # ----------------------------

@@ -94,3 +94,5 @@ map l scroll right
 map J navigate next
 map K navigate previous
 
+# Palette switches with the active desktop theme.
+include ../themes/current/zathurarc

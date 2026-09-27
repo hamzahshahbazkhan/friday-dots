@@ -1,19 +1,19 @@
-
-#!/bin/bash
-
+#!/usr/bin/env bash
+set -euo pipefail
 THEMES_DIR="$HOME/.config/themes"
 THEME_LINK="$THEMES_DIR/current"
 
-if [ -z "$1" ]; then
+if [ -z "${1:-}" ]; then
     echo "Usage: set-theme <theme-name>"
     echo ""
     echo "Available themes:"
-    ls -1 "$THEMES_DIR" 2>/dev/null | grep -v "current" | sed 's/^/  - /'
-    [ -L "$THEME_LINK" ] && echo "" && echo "Current: $(basename $(readlink $THEME_LINK))"
+    ls -1 "$THEMES_DIR" 2>/dev/null | grep -v "^current$" | sed 's/^/  - /'
+    [ -L "$THEME_LINK" ] && echo "" && echo "Current: $(basename "$(readlink "$THEME_LINK")")"
     exit 1
 fi
 
 THEME="$1"
+[[ "$THEME" != */* && "$THEME" != .* ]] || { echo "Error: use a theme name, not a path" >&2; exit 2; }
 THEME_DIR="$THEMES_DIR/$THEME"
 
 if [ ! -d "$THEME_DIR" ]; then
@@ -21,43 +21,34 @@ if [ ! -d "$THEME_DIR" ]; then
     exit 1
 fi
 
-# Update the symlink
-rm -f "$THEME_LINK"
-ln -sf "$THEME_DIR" "$THEME_LINK"
+for required in quickshell.json hyprland.lua hyprlock.conf neovim.lua gtk.css; do
+    [[ -f "$THEME_DIR/$required" ]] || { echo "Error: theme '$THEME' is missing $required" >&2; exit 2; }
+done
+python -m json.tool "$THEME_DIR/quickshell.json" >/dev/null || { echo "Error: invalid quickshell.json in '$THEME'" >&2; exit 2; }
+
+tmp_link="$THEMES_DIR/.current.$$"
+trap 'rm -f "$tmp_link"' EXIT
+ln -sfnT "$THEME_DIR" "$tmp_link"
+mv -Tf "$tmp_link" "$THEME_LINK"
 
 echo "✓ Switched to: $THEME"
 echo ""
-echo "Reloading services..."
+echo "Reloading..."
 
-# Reload Hyprland
+# Hyprland border colors come from the theme file; reload to pick them up
+hyprctl reload &>/dev/null && echo "  ✓ Hyprland reloaded" || echo "  ! Hyprland reload failed (not running?)"
 
-# Reload Waybar
-# if pgrep -x waybar > /dev/null; then
-#     pkill -SIGUSR2 waybar 2>/dev/null && echo "  ✓ Waybar reloaded" || {
-#         killall waybar 2>/dev/null
-#         waybar &>/dev/null &
-#         echo "  ✓ Waybar restarted"
-#     }
-# fi
-
-# Reload Mako
-if pgrep -x mako > /dev/null; then
-    makoctl reload &>/dev/null && echo "  ✓ Mako reloaded"
-fi
-if pgrep -x waybar> /dev/null; then
-    killall waybar && hyprctl dispatch exec waybar && echo "  ✓ Mako reloaded"
+# Restart Quickshell so every widget reads the new theme through the current symlink.
+if quickshell list 2>/dev/null | grep -q quickshell; then
+    quickshell kill >/dev/null 2>&1 || true
+    quickshell --daemonize
+    echo "  ✓ Quickshell restarted"
 fi
 
-
-# Reload tmux if it's running
-# if command -v tmux &> /dev/null && tmux info &> /dev/null 2>&1; then
-    tmux source-file ~/.tmux.conf
-#     echo "  ✓ Tmux reloaded"
-# fi
+# tmux theme
+if command -v tmux &>/dev/null && tmux info &>/dev/null 2>&1; then
+    tmux source-file ~/.tmux.conf &>/dev/null && echo "  ✓ Tmux reloaded"
+fi
 
 echo ""
-echo "Restart manually for full effect:"
-echo "  - Ghostty: close and reopen"
-echo "  - Neovim: close and reopen"
-echo "  - Rofi: applies on next launch"
-
+echo "Existing Ghostty, Neovim, and GTK app sessions may need reopening."
