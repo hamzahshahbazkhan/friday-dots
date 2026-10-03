@@ -84,6 +84,10 @@ map <C-s> recolor
 # Vim-style toggle (optional)
 map z recolor
 
+# Recolor presets: S = sepia paper, D = dark mode (both force recolor on)
+map S feedkeys ":set recolor-lightcolor #ddc7a1<Return>:set recolor-darkcolor #252423<Return>:set recolor-keephue false<Return>:set recolor-reverse-video false<Return>:set recolor true<Return>"
+map D feedkeys ":set recolor-lightcolor #282828<Return>:set recolor-darkcolor #d4cfc4<Return>:set recolor-keephue true<Return>:set recolor-reverse-video false<Return>:set recolor true<Return>"
+
 # Smooth navigation (optional but nice)
 map j scroll down
 map k scroll up

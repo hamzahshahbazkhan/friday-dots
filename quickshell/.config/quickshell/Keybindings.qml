@@ -33,7 +33,7 @@ Scope {
       "SUPER + SHIFT + L": "Switch layout",
       "SUPER + M": "Toggle fullscreen",
       "SUPER + S": "Toggle notes scratchpad",
-      "SUPER + SHIFT + S": "Move window to scratch workspace",
+      "SUPER + SHIFT + S": "Toggle side notes panel",
       "SUPER + V": "Open clipboard history",
       "SUPER + PERIOD": "Open emoji picker",
       "SUPER + P": "Next wallpaper",

@@ -47,8 +47,23 @@ hl.window_rule({
   match = { title = "^Friday Notes$" },
   workspace = "special:friday silent",
   float = true,
-  size  = { "monitor_w * 0.96", "monitor_h * 0.5" },
-  move  = { "(monitor_w - window_w) / 2", "0" },
+  size  = { "monitor_w", "monitor_h * 0.5" },
+  -- sit below the top bar (quickshell Theme.barHeight = 22, reserved top = 22)
+  move  = { "0", "22" },
+  opacity = "1.0 override 1.0 override",
+})
+
+hl.window_rule({
+  name  = "friday-side",
+  match = { title = "^Friday Side$" },
+  workspace = "special:friday-side silent",
+  float = true,
+  -- right-side panel: ~1/5 width, full height below the top bar.
+  -- NOTE: x uses monitor fraction (not window_w) so initial placement
+  -- doesn't depend on pre-resize window size; the script snaps exact geometry.
+  size  = { "monitor_w * 0.2", "monitor_h - 22" },
+  move  = { "monitor_w * 0.8", "22" },
+  opacity = "1.0 override 1.0 override",
 })
 
 hl.window_rule({

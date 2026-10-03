@@ -14,7 +14,9 @@ hl.config({
     sensitivity  = 0,
 
     touchpad     = {
-      natural_scroll = true,
+      natural_scroll       = true,
+      tap_to_click         = true,
+      disable_while_typing = true,
     },
 
     repeat_rate  = 40,

@@ -46,6 +46,10 @@ firefox
 telegram-desktop
 zathura
 zathura-pdf-mupdf
+texlive-basic
+texlive-latexrecommended
+texlive-fontsrecommended
+texlive-binextra
 mpv
 imv
 pipewire

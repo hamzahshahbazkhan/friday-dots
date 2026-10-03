@@ -137,6 +137,14 @@ keymap.set("n", "<Leader>dr", "<cmd>lua require'dap'.run_last()<CR>", { desc = "
 -- rustaceanvim
 keymap.set("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger testables" })
 
+-- LaTeX (vimtex + zathura)
+keymap.set("n", "<leader>tc", "<cmd>VimtexCompile<CR>", { desc = "LaTeX compile toggle" })
+keymap.set("n", "<leader>tv", "<cmd>VimtexView<CR>", { desc = "LaTeX view in Zathura" })
+keymap.set("n", "<leader>ts", "<cmd>VimtexStop<CR>", { desc = "LaTeX stop compile" })
+keymap.set("n", "<leader>tx", "<cmd>VimtexClean<CR>", { desc = "LaTeX clean aux files" })
+keymap.set("n", "<leader>te", "<cmd>VimtexErrors<CR>", { desc = "LaTeX show errors" })
+keymap.set("n", "<leader>tt", "<cmd>VimtexTocToggle<CR>", { desc = "LaTeX toggle TOC" })
+
 -- for sessionizer
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer.sh<CR>")
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww ~/.config/scripts/utility/tmux/tmux-sessionizer.sh")

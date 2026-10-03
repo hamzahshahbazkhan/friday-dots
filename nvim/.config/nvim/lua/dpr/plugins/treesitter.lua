@@ -37,6 +37,7 @@ return {
         "graphql",
         "bash",
         "vim",
+        "latex",
         "dockerfile",
         "gitignore",
         "query",

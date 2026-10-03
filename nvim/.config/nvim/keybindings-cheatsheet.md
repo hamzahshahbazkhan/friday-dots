@@ -118,6 +118,15 @@
 - `<Leader>dr` - Debugger run last
 - `<Leader>dt` - Debugger testables
 
+### LaTeX (vimtex + Zathura)
+
+- `<leader>tc` - LaTeX compile toggle (continuous latexmk)
+- `<leader>tv` - LaTeX view in Zathura (forward search)
+- `<leader>ts` - LaTeX stop compile
+- `<leader>tx` - LaTeX clean aux files
+- `<leader>te` - LaTeX show errors
+- `<leader>tt` - LaTeX toggle TOC
+
 ### Other
 
 - `<leader>l` - Lint
