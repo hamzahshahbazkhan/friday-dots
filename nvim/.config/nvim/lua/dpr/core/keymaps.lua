@@ -139,7 +139,16 @@ keymap.set("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { des
 
 -- LaTeX (vimtex + zathura)
 keymap.set("n", "<leader>tc", "<cmd>VimtexCompile<CR>", { desc = "LaTeX compile toggle" })
-keymap.set("n", "<leader>tv", "<cmd>VimtexView<CR>", { desc = "LaTeX view in Zathura" })
+keymap.set("n", "<leader>tv", function()
+  local running = false
+  pcall(function()
+    running = vim.b.vimtex.compiler.is_running() == 1
+  end)
+  if not running then
+    vim.cmd("VimtexCompile")
+  end
+  vim.cmd("VimtexView")
+end, { desc = "LaTeX live compile+view" })
 keymap.set("n", "<leader>ts", "<cmd>VimtexStop<CR>", { desc = "LaTeX stop compile" })
 keymap.set("n", "<leader>tx", "<cmd>VimtexClean<CR>", { desc = "LaTeX clean aux files" })
 keymap.set("n", "<leader>te", "<cmd>VimtexErrors<CR>", { desc = "LaTeX show errors" })
